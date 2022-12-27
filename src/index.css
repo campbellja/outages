@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.outage-list
+{
+
+}
+
+.outage-list table td{
+  border-top: 1px solid black;
+}
+
+.outage-list .incident{
+  color: darkred;
+}
+
+.outage-list .incident .icon::after{  
+  content: "🔥";
+}
+
+.outage-list .false-alarm
+{
+  background-color: lightcyan;
+}
+
+.outage-list .false-alarm .icon::after{  
+  content: "✅";
+}
+
+.outage-list .planned-outage{
+  background-color: yellow;
+}
+
+.outage-list .planned-outage .icon::after{  
+  content: "👷";
+}
