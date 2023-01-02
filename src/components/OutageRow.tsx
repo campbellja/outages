@@ -68,15 +68,15 @@ const OutageRow = ({ outage }: { outage: Outage }) => {
     return <tr className={className(type)}>
         <td><span>&nbsp;&nbsp;&nbsp;</span></td>
         {/* <td><span>{outage.id}</span></td> */}
-        <td className="icon"><span>{getOutageTypeDescription(type)}</span></td>
+        <td className="icon"><span></span></td>
         <td>
             <div className="toggle-radio">
-                <input id={`${outageTypeFieldName}-plannedOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.PlannedOutage} onChange={plannedOutageCheckClicked} />
-                <label htmlFor={`${outageTypeFieldName}-plannedOutageType`}>Planned</label>
-                <input id={`${outageTypeFieldName}-incidentOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.Incident} onChange={incidentCheckClicked} />
+                <input data-color="yellow" id={`${outageTypeFieldName}-plannedOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.PlannedOutage} onChange={plannedOutageCheckClicked} />
+                <label htmlFor={`${outageTypeFieldName}-plannedOutageType`}>Planned Outage</label>
+                <input data-color="red" id={`${outageTypeFieldName}-incidentOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.Incident} onChange={incidentCheckClicked} />
                 <label htmlFor={`${outageTypeFieldName}-incidentOutageType`}>Incident</label>
-                <input id={`${outageTypeFieldName}-falseAlarmOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.FalseAlarm} onChange={falseAlarmCheckClicked} />
-                <label htmlFor={`${outageTypeFieldName}-falseAlarmOutageType`}>False</label>
+                <input data-color="green" id={`${outageTypeFieldName}-falseAlarmOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.FalseAlarm} onChange={falseAlarmCheckClicked} />
+                <label htmlFor={`${outageTypeFieldName}-falseAlarmOutageType`}>False Alarm</label>
             </div>
         </td>
         <td><DateTimeField date={outage.startDate} /></td>
