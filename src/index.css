@@ -17,6 +17,9 @@ code {
 
 }
 
+.outage-list table caption {
+  font-weight: bold;
+}
 .outage-list table td{
   border-top: 1px solid black;
 }
