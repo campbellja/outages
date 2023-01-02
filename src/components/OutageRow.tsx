@@ -1,8 +1,9 @@
+import '../toggle-radios.css';
 import { FC, useState } from "react";
 import Outage, { OutageTypes } from "../model/Outage";
 import Moment from "moment";
 
-const OutageRow = ({outage}: {outage: Outage}) => {
+const OutageRow = ({ outage }: { outage: Outage }) => {
     const [type, setType] = useState(outage.type);
 
 
@@ -27,10 +28,10 @@ const OutageRow = ({outage}: {outage: Outage}) => {
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-              },
+            },
         })
         .then(response => response.json())
-        .then(json=>console.info('PATCH response', json))
+        .then(json => console.info('PATCH response', json))
     };
 
     const falseAlarmCheckClicked = (e: any) => {
@@ -63,27 +64,39 @@ const OutageRow = ({outage}: {outage: Outage}) => {
     };
 
     const duration = Moment.duration(Moment(outage.endDate).diff(outage.startDate));
-
+    const outageTypeFieldName = `outageTypeRadioGroup-${outage.id}`;
     return <tr className={className(type)}>
-        <td className="icon"><span></span></td>
+        <td><span>&nbsp;&nbsp;&nbsp;</span></td>
         {/* <td><span>{outage.id}</span></td> */}
-        <td><input type="radio" value="false" checked={type === OutageTypes.PlannedOutage} onChange={plannedOutageCheckClicked} /></td>
-        <td><input type="radio" value="false" checked={type === OutageTypes.Incident} onChange={incidentCheckClicked} /></td>
-        <td><input type="radio" value="false" checked={type === OutageTypes.FalseAlarm} onChange={falseAlarmCheckClicked} /></td>
-        <td><span>{getOutageTypeDescription(type)}</span></td>
+        <td className="icon"><span>{getOutageTypeDescription(type)}</span></td>
+        <td>
+            <div className="toggle-radio">
+                <input id={`${outageTypeFieldName}-plannedOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.PlannedOutage} onChange={plannedOutageCheckClicked} />
+                <label htmlFor={`${outageTypeFieldName}-plannedOutageType`}>Planned</label>
+                <input id={`${outageTypeFieldName}-incidentOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.Incident} onChange={incidentCheckClicked} />
+                <label htmlFor={`${outageTypeFieldName}-incidentOutageType`}>Incident</label>
+                <input id={`${outageTypeFieldName}-falseAlarmOutageType`} name={outageTypeFieldName} type="radio" value="false" checked={type === OutageTypes.FalseAlarm} onChange={falseAlarmCheckClicked} />
+                <label htmlFor={`${outageTypeFieldName}-falseAlarmOutageType`}>False</label>
+            </div>
+        </td>
         <td><DateTimeField date={outage.startDate} /></td>
         <td><DateTimeField date={outage.endDate} /></td>
-        <td>{duration.asMinutes()}</td>        
+        <td>{duration.asMinutes()}</td>
     </tr>;
 };
 
 
 export type DateTimeFieldValue = {
-    date: Date;
+    date: string;
 }
 
 const DateTimeField: FC<DateTimeFieldValue> = ({ date }) => {
-    return <>{date} @ {date}</>;
+    const d = new Date(date);
+    return <>{d.toLocaleDateString("en", {
+        year: "numeric",
+        month: "2-digit",
+        day: "numeric"
+    })} @ {d.toLocaleTimeString("en")}</>;
 };
 //  => <span>{date.toLocaleDateString()} @ {date.toLocaleTimeString()}</span>;
 

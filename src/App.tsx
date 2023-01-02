@@ -1,23 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import OutageList from './components/OutageList';
-import Outage, { OutageTypes } from './model/Outage';
+import Outage, { GetOutagesResult, OutageTypes } from './model/Outage';
 import createMockServer from './mock';
 
 createMockServer();
 
-const initDate = new Date('2022-12-27T09:52:26.721Z');
-const buildOutages = (): Outage[] => Array.from(Array(50).keys()).map(i => {
-  const id = i.toString();
-  const startDate = new Date(initDate);
-  startDate.setHours(startDate.getHours() + i);
-  const endDate = new Date(startDate);
-  endDate.setHours(startDate.getHours() + 1);
-  return { id: id, type: OutageTypes.Incident, startDate: startDate, endDate: endDate };
-});
 
-
-const fetchMockOutages = (): Outage[] => buildOutages();
 const fetchOutages = () => fetch(outagesEndpoint).then(res => {
   console.debug("Raw response", res);
   return res;
@@ -34,15 +23,14 @@ function App() {
     fetchOutages()
       .then((result) => {
         setIsLoaded(true);
-        const outages = result.outages;
-        setItems(outages);
+        const response = result.outages as Outage[];    
+        setItems(response);
       },
         (error) => {
           setIsLoaded(true);
           setError(error);
         });
-  };
-  console.info('using outages list', items);
+  };  
   useEffect(() => {
 
     let loaded = false;
@@ -76,7 +64,5 @@ function App() {
   );
 
 }
-
-
 
 export default App;

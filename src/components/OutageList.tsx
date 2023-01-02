@@ -10,10 +10,8 @@ export default function OutageList({ outages }: { outages: Outage[] }) {
                     <tr>
                         <th></th>
                         {/* <th>ID</th> */}
-                        <th>Planned Outage</th>
-                        <th>Incident</th>
-                        <th>False Alarm</th>
-                        <th>Type</th>
+                        <th></th>
+                        <th>Outage Type</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Duration (mins)</th>

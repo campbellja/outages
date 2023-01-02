@@ -17,6 +17,15 @@ code {
 
 }
 
+.outage-list .pending{
+  background: white;
+  color: lightgray;
+}
+
+.outage-list .pending table td{
+  border: lightgray;
+}
+
 .outage-list table caption {
   font-weight: bold;
 }

@@ -7,8 +7,8 @@ export enum OutageTypes {
 export class Outage {
     constructor(id: string,
         type: OutageTypes,
-        startDate: Date,
-        endDate: Date) {
+        startDate: string,
+        endDate: string) {
         this.id = id;
         this.type = type;
         this.startDate = startDate;
@@ -17,10 +17,20 @@ export class Outage {
 
     public id: string;
     public type: OutageTypes;
-    public startDate: Date;
-    public endDate: Date;
+    public startDate: string;
+    public endDate: string;
 
 }
+
+export class GetOutagesResult {
+    constructor(outages: Outage[]) {
+        this.outages = outages;
+    }
+
+    public outages: Outage[];
+}
+
+
 export default Outage;
 // const example: IOutage[] = [
 //     {id: '12345', type: OutageTypes.Incident, startDate: new Date('2022-12-27T09:52:26.721Z'), endDate: new Date('2022-12-27T09:55:26.721Z')},
